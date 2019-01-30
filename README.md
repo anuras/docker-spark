@@ -1,7 +1,10 @@
+#
+
+Image based on a gettyimages Spark image(https://github.com/gettyimages/docker-spark/tree/2.1.0-hadoop-2.7), with Airflow installed additionally. This can be useful for testing Airflow Spark workflows in a local environment.
 
 # spark
 
-A `debian:stretch` based [Spark](http://spark.apache.org) container. Use it in a standalone cluster with the accompanying `docker-compose.yml`, or as a base for more complex recipes.
+An `ubuntu:16.04` based [Spark](http://spark.apache.org) container. Use it in a standalone cluster with the accompanying `docker-compose.yml`, or as a base for more complex recipes.
 
 ## docker example
 
@@ -15,7 +18,7 @@ To start `spark-shell` with your AWS credentials:
 
 To do a thing with Pyspark
 
-    echo -e "import pyspark\n\nprint(pyspark.SparkContext().parallelize(range(0, 10)).count())" > count.py
+    echo "import pyspark\nprint(pyspark.SparkContext().parallelize(range(0, 10)).count())" > count.py
     docker run --rm -it -p 4040:4040 -v $(pwd)/count.py:/count.py gettyimages/spark bin/spark-submit /count.py
 
 ## docker-compose example
