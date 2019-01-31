@@ -6,6 +6,8 @@ master:
     MASTER: spark://master:7077
     SPARK_CONF_DIR: /conf
     SPARK_PUBLIC_DNS: localhost
+  env_file:
+    - testCreds.env
   expose:
     - 7001
     - 7002
@@ -23,8 +25,8 @@ master:
     - 8082:8082
   volumes:
     - ./conf/master:/conf
-    - ./data:/tmp/data
-
+    - ./data:/data
+    - ./spark-flow:/spark-flow
 worker:
   image: anuras/spark-airflow:2.1.0-hadoop-2.7
   command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
@@ -49,4 +51,4 @@ worker:
     - 8081:8081
   volumes:
     - ./conf/worker:/conf
-    - ./data:/tmp/data
+    - ./data:/data
