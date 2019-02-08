@@ -5,9 +5,19 @@ MAINTAINER anuras "https://github.com/anuras"
 RUN apt-get update \
  && apt-get -y upgrade \
  && apt-get install -y curl wget unzip default-jre default-jdk s3cmd \
-    python3 python3-pip \
+    python3 python3-pip locales
+
+RUN dpkg-reconfigure -f noninteractive locales \
+ && locale-gen en_US.UTF-8 \
+ && /usr/sbin/update-locale LANG=C.UTF-8 \
+ && echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+ && locale-gen \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
 
 # Install Airflow
 RUN pip3 install --upgrade pip
